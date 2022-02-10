@@ -1,5 +1,5 @@
 ### RNAseq_PLOT
-PLOTmp is a function to plot any number of RNAseq datasets.
+`PLOTmp` is a function to plot any number of RNAseq datasets.
 
 It requires the following libraries from bioconductor:
 ```
