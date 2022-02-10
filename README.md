@@ -8,6 +8,7 @@ library(GenomicFeatures)
 library(GenomicAlignments)
 library(rtracklayer)
 ```
+
 Example of using `gene.structure` for loading a gff file (also can use gtf files, but need to change format="gtf"
 
 ```
@@ -24,8 +25,12 @@ Next, create variables for RNA-seq bam file paths
 CTRL_selected="~/Desktop/ABA/P_sites_all/RNA_DMSO60_merged_selected_0.935.bam"
 ABA_all="~/Desktop/ABA/P_sites_all/RNA_ABA60_merged.bam"
 CTRL_all="~/Desktop/CTRL_v1/RNA_CTRL_merged.bam"
+```
 
-# make a vector for the paths of the bam files, this 
+Next, make a vector for the paths of the bam files
+```
+# Here I only have three files, but use them five times to show the function can take more files.
+# How many RNA-seq files you can plot simultaneously depend on the RAM size of your computer.
 RNAseqData1 = cbind(CTRL_selected,ABA_all,CTRL_all,ABA_all,CTRL_selected)
 ```
 
