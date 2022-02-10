@@ -8,10 +8,9 @@ library(GenomicFeatures)
 library(GenomicAlignments)
 library(rtracklayer)
 ```
+Example of using `gene.structure` for loading a gff file (also can use gtf files, but need to change format="gtf"
 
 ```
-#Example of using `gene.structure` for loading a gff file (also can use gtf files, but need to change format="gtf"
-
 gene.structure(annotation="~/Desktop/Arabidopsis/Araport11_GFF3_genes_transposons.201606.gff",
                format="gff",
                dataSource="Araport",
