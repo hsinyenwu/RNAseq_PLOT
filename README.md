@@ -1,4 +1,23 @@
 ### RNAseq_PLOT
+PLOTmp is a function to plot any number of RNAseq datasets.
+
+It requires the following libraries from bioconductor:
+```
+library(GenomicRanges)
+library(GenomicFeatures)
+library(GenomicAlignments)
+library(rtracklayer)
+```
+
+```
+#Example gff loading (also can use gtf files, but need to change format="gtf"
+
+gene.structure(annotation="~/Desktop/Arabidopsis/Araport11_GFF3_genes_transposons.201606.gff",
+               format="gff",
+               dataSource="Araport",
+               organism="Arabidopsis thaliana")
+```
+
 ```
 PLOTmp(AT1G01740,RNAseqData=RNAseqData1,Extend=200,BGcolor="#FEFEAE")
 ```
