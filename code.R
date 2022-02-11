@@ -50,6 +50,8 @@ plotRanges <- function(isoform,shortest3UTR, ybottom, main = deparse(substitute(
     # plot 5'UTR
     if (isoform %in% names(fiveUTR)) {
       xlim5=ranges(unlist(fiveUTR[isoform]))
+      # print(xlim5)
+      # print(ybottom)
       rect(start(xlim5), ybottom, end(xlim5), ybottom + height, col = col5, border = "black")
     }
     # plot lines between exons to represent introns
@@ -113,23 +115,24 @@ plotGeneModel_num <- function(gene,Extend=Extend){
   xlimg= min(start(generanges))-0.05
   genelim <- c(min(start(generanges))-Extend, max(end(generanges))+Extend)
   isoforms.w.3UTR <- unlist(txByGene[gene])$tx_name[which(unlist(txByGene[gene])$tx_name %in% names(threeUTR))]
+  # print(isoforms.w.3UTR)
   plot.new()
   yAxis <- (isoforms*0.3+0.1)
   plot.window(genelim,c(0,yAxis))
-  tx_name_start_pos <- nchar(gene)+2 #find the position of the tx name start
-  tx_num <- sort(substr(unlist(txByGene[gene])$tx_name,tx_name_start_pos,nchar(unlist(txByGene[gene])$tx_name)))
-  # tx_fac <- as.numeric(as.factor(tx_num))
+  k=unlist(txByGene[gene])$tx_name
+  # Changed the function to extract the isoform directly instead of getting the number behind the gene name like Arabidopsis and tomato
   for (i in sort(unlist(txByGene[gene])$tx_name)) {
-    k=as.numeric(substr(i,tx_name_start_pos,nchar(i)))
-    k2=which(tx_num==k)
+    k2=which(k==i)
+    # print(paste("transcript name(s):",i)) #print isoform names
     if (i %in% names(threeUTR)) {
       shortest3UTR <- min(sapply(isoforms.w.3UTR, function(j) width(tail(unlist(threeUTR[j]),1))))
       plotRanges(isoform=i,shortest3UTR,ybottom=(yAxis-0.28*k2)) #removed
-      text(x=min(start(generanges))-Extend-0.1, y=(yAxis-0.28*k2+0.05), labels=tx_num[k2],cex=1.2)
+      text(x=min(start(generanges))-Extend-0.1, y=(yAxis-0.28*k2+0.05), labels=k2,cex=1)
+      #labels=unlist(txByGene[gene])$tx_name[k2] -> labels=k2
     }
     else {
       plotRanges(isoform=i,ybottom=(yAxis-0.28*k2))
-      text(x=min(start(generanges))-Extend-0.1, y=(yAxis-0.28*k2+0.05), labels=tx_num[k2],cex=1.2)
+      text(x=min(start(generanges))-Extend-0.1, y=(yAxis-0.28*k2+0.05), labels=k2,cex=1)
     }
   }
 }
@@ -138,6 +141,7 @@ PLOTmp <-function(YFG,RNAseqData,Extend=0,BGcolor="#FEFEAE") {
   #RNAseqData is a list of defined path (e.g. RNAseqData-list(RNAseqBam1,RNAseqBam2,RNAseqBam3)
   #You have to define RNAseqBam1 <- "~/Desktop/RNA1.bam" ...
   YFG <- deparse(substitute(YFG)) #So you do not need to add quote "" around the gene name
+  print(paste("gene name:",YFG))
   Names_Dataset <- colnames(RNAseqData)
   Num_Dataset <- length(RNAseqData)
   Num_row <- Num_Dataset+1
@@ -145,6 +149,7 @@ PLOTmp <-function(YFG,RNAseqData,Extend=0,BGcolor="#FEFEAE") {
   par(mfrow=c(Num_row,1),mar=c(0.2,0.2,0.2,0.2),oma=c(3,2,4,2))
   
   chr <- as.character(seqnames(exonsByGene[YFG])[[1]])[1]
+  # print(chr)
   generanges <- ranges(unlist(exonsByGene[YFG]))
   GR <- GRanges(seqnames=as.character(chr),IRanges(min(start(generanges))-Extend, max(end(generanges))+Extend),strand=strand(unlist(exonsByGene[YFG]))[1])
   #Add ranges for extracting RNAseq reads
@@ -167,18 +172,19 @@ PLOTmp <-function(YFG,RNAseqData,Extend=0,BGcolor="#FEFEAE") {
     par(new = T)
     plot(Gtx,type="l",col="darkgrey",lwd=1,xaxt='n',ylim=c(0,max(Gtx)+2))
     lines(x=c(1,length(Gtx)),y=c(0,0),col="white",lwd=2)
-    legend("topleft",inset=c(-0.03,-0.03),legend=Names_Dataset[i],bty="n",cex=1.5)
+    legend("topleft",legend=Names_Dataset[i],bty="n",cex=1) #inset=c(-0.05,-0.05)
   }
   plotGeneModel_num(YFG,Extend=Extend)
   mtext(YFG,side=3,line=0.4, cex=1.2, col="black", outer=TRUE)
 }
+```
 
 ##################################################
 ##################################################
 ##################################################
 ##################################################
 
-# The following show you how to run the code
+# The following show you how to run the code 
 ############################
 #  Load RNASeq Bam files   #
 ############################
@@ -214,4 +220,5 @@ PLOTmp(AT1G01370,RNAseqData=RNAseqData1,Extend=0)
 PLOTmp(AT1G01740,RNAseqData=RNAseqData1,Extend=200)
 PLOTmp(AT1G01220,RNAseqData=RNAseqData1,Extend=200)
 PLOTmp(AT1G01700,RNAseqData=RNAseqData1,Extend=200)
+ 
 ```
