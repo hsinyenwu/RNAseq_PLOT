@@ -41,10 +41,10 @@ PLOTmp(AT1G01740,RNAseqData=RNAseqData1,Extend=200,BGcolor="#FEFEAE")
 
 Parameters for `PLOTmp`
 ```
-#@ YFG: gene id 
-#@ RNAseqData: the vector of the bam file paths
-#@ Extend x number of nucleotide on both side of YFG (wider on both sides)
-#@ BGcolor: RNA-seq coverage color
+#' @YFG: gene id 
+#' @RNAseqData: the vector of the bam file paths
+#' @Extend x number of nucleotide on both side of YFG (wider on both sides)
+#' @BGcolor: RNA-seq coverage color
 
 ```
 
