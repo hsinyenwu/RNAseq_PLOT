@@ -2,10 +2,6 @@
 ###############################################
 #rm(list=ls())
 
-##################################################
-# Only plot the riboseq reads in the CDS region  #
-##################################################
-
 library(GenomicRanges)
 library(GenomicFeatures)
 library(GenomicAlignments)
