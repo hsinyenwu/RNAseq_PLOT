@@ -8,7 +8,7 @@ library(GenomicAlignments)
 library(rtracklayer)
 
 # gene.structure function help to load all required information to the global environment
-# plotRanges plots GRanges for an isoform 
+# plotRanges plots GRanges for an isoform for both protein coding or ncRNA genes
 # plotGeneModel_num uses plotRanges to plot all isoforms
 # plot multiple paired-end data
 
@@ -100,7 +100,26 @@ plotRanges <- function(isoform,shortest3UTR, ybottom, main = deparse(substitute(
     axis(1)
   }
   else {
-    stop("Input transcript is not a coding gene in gtf/gff file.")
+    height <- 0.1
+    xlim=ranges(unlist(exonsByTx[isoform]))
+    # xlimCds=ranges(unlist(cdsByTx[isoform]))
+
+    # plot lines between exons to represent introns
+    if (length(unlist(exonsByTx[isoform]))>1) {
+      GAPS <- gaps(unlist(exonsByTx[isoform]),start=NA)
+      segments(x0 = start(GAPS),
+               y0 = ybottom+height/2,
+               x1 = start(GAPS)+width(ranges(GAPS))/2,
+               y1 = ybottom+height,
+               col = "black",lwd=1)
+      
+      segments(x0 = start(GAPS)+width(ranges(GAPS))/2,
+               y0 = ybottom+height,
+               x1 = end(GAPS),
+               y1 = ybottom+height/2,
+               col = "black",lwd=1)
+    }
+    rect(start(xlim), ybottom, end(xlim), ybottom + height, col =c("black","black","black") , border = "black")
   }
 }
 
