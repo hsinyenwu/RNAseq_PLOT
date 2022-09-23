@@ -1,6 +1,6 @@
-#Same as PLOTmp except, for one given gene, use the max of the first RNAseq dataset for all datasets
+#Same as previous PLOTmp, for one given gene, use the max of the first RNAseq dataset for all datasets
 
-PLOTmpfix <-function(YFG,RNAseqData,Extend=0,BGcolor="#FEFEAE") {
+PLOTmp <-function(YFG,RNAseqData,Extend=0,BGcolor="#FEFEAE") {
   #RNAseqData is a list of defined path (e.g. RNAseqData-list(RNAseqBam1,RNAseqBam2,RNAseqBam3)
   #You have to define RNAseqBam1 <- "~/Desktop/RNA1.bam" ...
   # YFG <- deparse(substitute(YFG)) #So you do not need to add quote "" around the gene name
