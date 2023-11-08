@@ -193,13 +193,8 @@ PLOTmp <-function(YFG,RNAseqData,Extend=0,BGcolor="#FEFEAE") {
   mtext(YFG,side=3,line=0.4, cex=1.2, col="black", outer=TRUE)
 }
 ```
-
-##################################################
-##################################################
-##################################################
-##################################################
-
-# The following show you how to run the code 
+### The following show you how to run the code 
+```
 ############################
 #  Load RNASeq Bam files   #
 ############################
